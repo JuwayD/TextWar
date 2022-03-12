@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityGameFramework.Runtime;
 using System;
+using HRQTextWar.Config;
+using System.IO;
 
 namespace HRQTextWar.Editor.Config
 {
@@ -13,7 +15,7 @@ namespace HRQTextWar.Editor.Config
     public class ConfigWindow : EditorWindow
     {
         #region 外部方法
-        
+
         /// <summary>
         /// 打开配置窗口
         /// </summary>
@@ -29,6 +31,9 @@ namespace HRQTextWar.Editor.Config
 
         private void OnGUI()
         {
+            GUILayout.Label("输入配置数据根目录");
+            m_configDataDirectory = GUILayout.TextField(m_configDataDirectory);
+
             if (GUILayout.Button("生成配置数据"))
             {
                 GenerateConfigData();
@@ -46,9 +51,35 @@ namespace HRQTextWar.Editor.Config
         {
             //编译配置目录下的所有asset文件，利用其中数据生成字典
             //todo huangrongqi 后续还会在这边添加去重 外键检查
+            if (!AssetDatabase.IsValidFolder(m_configDataDirectory))
+            {
+                Debug.LogError("填写的路径不存在请确认是否填写正确");
+                return;
+            }
+
+            string[] assetPaths = AssetDatabase.FindAssets("t: ConfigDataContainer", new string[] {m_configDataDirectory});
+
+
+            foreach (var assetPath in assetPaths)
+            {
+                if (AssetDatabase.LoadAssetAtPath<ConfigDataContainer>(AssetDatabase.GUIDToAssetPath(assetPath)) is ConfigDataContainer configDataContainer)
+                {
+                    configDataContainer.GenerateConfigDataDict();
+                }
+            }
         }
 
         #endregion
+
+        #region 内部字段
+
+        /// <summary>
+        /// 配置数据目录
+        /// </summary>
+        private string m_configDataDirectory;
+
+        #endregion
+
     }
 
 }

@@ -2,7 +2,6 @@ using GameFramework.Event;
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using HRQTextWar.Battle.Logic;
-using HRQTextWar.Define;
 using System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -18,7 +17,6 @@ namespace HRQTextWar.Entrance.Logic
         {
             base.OnEnter(procedureOwner);
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId,OnEventLoadConfigSuccess);
-            GameEntry.Config.ReadData(GameInitDefine.GameConfigScriptableObjectPathDefine);
             ChangeState<BattleProcedure>(procedureOwner);
             Log.Error("OK 入口流程已经启动");
         }
@@ -36,10 +34,6 @@ namespace HRQTextWar.Entrance.Logic
             var eventArgs = e as LoadConfigSuccessEventArgs;
             switch (eventArgs.ConfigAssetName)
             {
-                case GameInitDefine.GameConfigScriptableObjectPathDefine:
-                    //加载游戏配置资源完成时
-                    
-                    break;
                 default:
                     break;
             }

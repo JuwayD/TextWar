@@ -13,23 +13,19 @@ namespace HRQTextWar.Config
     public class BattleSceneConfigDataContainer : ConfigDataContainer
     {
         /// <summary>
-        /// 配置数据字典
-        /// </summary>
-        private Dictionary<int, ConfigData> m_configDataDictionary = new Dictionary<int, ConfigData>();
-
-        /// <summary>
-        /// 配置数据列表
-        /// </summary>
-        [SerializeField]
-        private List<BattleSceneConfigData> m_configDataList = new List<BattleSceneConfigData>();
-
-        /// <summary>
         /// 返回存储数据的字典
         /// </summary>
         /// <returns></returns>
         public override Dictionary<int, ConfigData> GetConfigDataDictionary()
         {
-            return m_configDataDictionary;
+            var configDataDictionary = new Dictionary<int, ConfigData>();
+
+            foreach (var config in m_configDataDictionary)
+            {
+                configDataDictionary.Add(config.Key, config.Value);
+            }
+
+            return configDataDictionary;
         }
 
         /// <summary>
@@ -40,6 +36,42 @@ namespace HRQTextWar.Config
         {
             return typeof(BattleSceneConfigData);
         }
+
+        /// <summary>
+        /// 返回存储数据列表
+        /// </summary>
+        /// <returns></returns>
+        public override  List<ConfigData> GetConfigDataList()
+        {
+            return new List<ConfigData>(m_configDataList);
+        }
+
+        /// <summary>
+        /// 生成配置数据字典
+        /// </summary>
+        public override void GenerateConfigDataDict()
+        {
+            var configDataDict = m_configDataDictionary;
+            foreach (var configData in m_configDataList)
+            {
+                configDataDict.Add(configData.Id, configData);
+            }
+        }
+
+        #region 内部字段
+
+        /// <summary>
+        /// 配置数据字典
+        /// </summary>
+        private readonly Dictionary<int, BattleSceneConfigData> m_configDataDictionary = new Dictionary<int, BattleSceneConfigData>();
+
+        /// <summary>
+        /// 配置数据列表
+        /// </summary>
+        [SerializeField]
+        private List<BattleSceneConfigData> m_configDataList = new List<BattleSceneConfigData>();
+
+        #endregion
     }
 
     /// <summary>
@@ -53,6 +85,11 @@ namespace HRQTextWar.Config
         /// </summary>
         [SerializeField]
         private string m_assetPath;
+
+        /// <summary>
+        /// 战斗场景资源路径
+        /// </summary>
+        public string AssetPath { get => m_assetPath; }
     }
 
 }

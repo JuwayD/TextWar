@@ -21,16 +21,33 @@ namespace HRQTextWar.Config
         /// </summary>
         /// <returns></returns>
         public abstract Dictionary<int, ConfigData> GetConfigDataDictionary();
-        
+
+        /// <summary>
+        /// 返回存储数据的列表
+        /// </summary>
+        /// <returns></returns>
+        public abstract List<ConfigData> GetConfigDataList();
+
+        /// <summary>
+        /// 生成配置数据字典
+        /// </summary>
+        public abstract void GenerateConfigDataDict();
+
     }
 
     /// <summary>
     /// 配置数据类型
     /// </summary>
+    [Serializable]
     public abstract class ConfigData
     {
         [SerializeField]
         private int m_id;
+
+        /// <summary>
+        /// 除枚举外所有配置数据都有 ID
+        /// </summary>
+        public int Id { get => m_id; }
     }
 
 }
