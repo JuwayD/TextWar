@@ -16,7 +16,6 @@ namespace HRQTextWar.Entrance.Logic
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId,OnEventLoadConfigSuccess);
             ChangeState<BattleProcedure>(procedureOwner);
             Log.Error("OK 入口流程已经启动");
         }

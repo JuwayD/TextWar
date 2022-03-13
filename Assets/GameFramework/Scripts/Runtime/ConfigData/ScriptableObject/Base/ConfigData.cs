@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HRQTextWar.Config
+namespace UnityGameFramework.ConfigData
 {
     /// <summary>
     /// ≈‰÷√ ˝æ›

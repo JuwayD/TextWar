@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0167b974a8166f349adc1a7a212e18af, type: 3}
   m_Name: BattleSceneConfigDataContainer
   m_EditorClassIdentifier: 
+  m_configDataList:
+  - m_id: 0
+    m_assetPath: Assets/Prefab/BattleGroud.prefab

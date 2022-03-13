@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityGameFramework.Runtime;
 using System;
-using HRQTextWar.Config;
 using System.IO;
+using UnityGameFramework.ConfigData;
 
 namespace HRQTextWar.Editor.Config
 {
@@ -67,6 +67,8 @@ namespace HRQTextWar.Editor.Config
                     configDataContainer.GenerateConfigDataDict();
                 }
             }
+
+            AssetDatabase.SaveAssets();
         }
 
         #endregion
@@ -76,7 +78,7 @@ namespace HRQTextWar.Editor.Config
         /// <summary>
         /// ÅäÖÃÊý¾ÝÄ¿Â¼
         /// </summary>
-        private string m_configDataDirectory;
+        private string m_configDataDirectory = "Assets/ConfigData";
 
         #endregion
 

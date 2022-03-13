@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityGameFramework.ConfigData;
 
 namespace UnityGameFramework.Runtime
 {
@@ -326,6 +327,15 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
+        /// 获取网络组件。
+        /// </summary>
+        public static ConfigDataComponent ConfigData
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 初始化组件
         /// </summary>
         private static void InitBuiltinComponents()
@@ -350,6 +360,7 @@ namespace UnityGameFramework.Runtime
             Sound = UnityGameFramework.Runtime.GameEntry.GetComponent<SoundComponent>();
             UI = UnityGameFramework.Runtime.GameEntry.GetComponent<UIComponent>();
             WebRequest = UnityGameFramework.Runtime.GameEntry.GetComponent<WebRequestComponent>();
+            ConfigData = UnityGameFramework.Runtime.GameEntry.GetComponent<ConfigDataComponent>();
         }
 
         private void Start()
