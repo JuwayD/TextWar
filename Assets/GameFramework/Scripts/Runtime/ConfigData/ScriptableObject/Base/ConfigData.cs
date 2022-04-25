@@ -8,7 +8,8 @@ namespace UnityGameFramework.ConfigData
     /// <summary>
     /// 配置数据
     /// </summary>
-    public abstract class ConfigDataContainer : ScriptableObject
+    [Serializable]
+    public abstract class ConfigDataContainer : ScriptableObject, ISerializationCallbackReceiver
     {
         /// <summary>
         /// 获取配置数据类型
@@ -29,10 +30,14 @@ namespace UnityGameFramework.ConfigData
         public abstract List<ConfigData> GetConfigDataList();
 
         /// <summary>
-        /// 生成配置数据字典
+        /// 序列化前
         /// </summary>
-        public abstract void GenerateConfigDataDict();
+        public abstract void OnBeforeSerialize();
 
+        /// <summary>
+        /// 序列化后
+        /// </summary>
+        public abstract void OnAfterDeserialize();
     }
 
     /// <summary>

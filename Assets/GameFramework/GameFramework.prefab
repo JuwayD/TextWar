@@ -641,9 +641,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AvailableProcedureTypeNames:
-  - GameFrameworkExample.ProcedureExample
-  - GameInitProcedure
-  m_EntranceProcedureTypeName: GameFrameworkExample.ProcedureExample
+  - HRQTextWar.Battle.Logic.BattleProcedure
+  - HRQTextWar.Launch.Logic.EntranceProcedure
+  m_EntranceProcedureTypeName: HRQTextWar.Launch.Logic.EntranceProcedure
 --- !u!1 &140694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,4 +1108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e66380476c82f4f96468c93159becd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_configDataRootDirectory: Assets/ConfigData
+  m_configDataRootDirectory: Assets/ConfigData/ConfigDataContainerList.asset

@@ -33,6 +33,7 @@ namespace HRQTextWar.Editor.Config
         {
             GUILayout.Label("输入配置数据根目录");
             m_configDataDirectory = GUILayout.TextField(m_configDataDirectory);
+            m_configDataListAssetPath = GUILayout.TextField(m_configDataListAssetPath);
 
             if (GUILayout.Button("生成配置数据"))
             {
@@ -59,12 +60,16 @@ namespace HRQTextWar.Editor.Config
 
             string[] assetPaths = AssetDatabase.FindAssets("t: ConfigDataContainer", new string[] {m_configDataDirectory});
 
+            //生成总表
+            var allConfigDataContainerList = AssetDatabase.LoadAssetAtPath<ConfigDataContainerList>(m_configDataListAssetPath);
+            allConfigDataContainerList.GetAllConfigDataContainerList().Clear();
 
+            //生成字典,给总表添加数据
             foreach (var assetPath in assetPaths)
             {
                 if (AssetDatabase.LoadAssetAtPath<ConfigDataContainer>(AssetDatabase.GUIDToAssetPath(assetPath)) is ConfigDataContainer configDataContainer)
                 {
-                    configDataContainer.GenerateConfigDataDict();
+                    allConfigDataContainerList.GetAllConfigDataContainerList().Add(configDataContainer);
                 }
             }
 
@@ -79,6 +84,11 @@ namespace HRQTextWar.Editor.Config
         /// 配置数据目录
         /// </summary>
         private string m_configDataDirectory = "Assets/ConfigData";
+
+        /// <summary>
+        /// 配置数据总表路径
+        /// </summary>
+        private string m_configDataListAssetPath = "Assets/ConfigData/ConfigDataContainerList.asset";
 
         #endregion
 

@@ -82,13 +82,13 @@ namespace UnityGameFramework.ConfigData
         /// <typeparam name="T">配置数据类型</typeparam>
         /// <param name="configDataID">配置数据ID</param>
         /// <returns></returns>
-        public ConfigData GetConfigData<T>(int configDataID)
+        public T GetConfigData<T>(int configDataID) where T :class
         {
             if (m_allConfigDataDictionary.TryGetValue(typeof(T), out Dictionary<int, ConfigData> configDataDict))
             {
                 if (configDataDict.TryGetValue(configDataID, out ConfigData configData))
                 {
-                    return configData;
+                    return configData as T;
                 }
                 else
                 {
@@ -154,8 +154,9 @@ namespace UnityGameFramework.ConfigData
 
         #region mono
 
-        private void Start()
+        protected void Start()
         {
+            //加载所有配置数据
             GameEntry.Resource.LoadAsset(m_configDataRootDirectory, new GameFramework.Resource.LoadAssetCallbacks(OnConfigDataLoaded));
         }
 
@@ -170,10 +171,15 @@ namespace UnityGameFramework.ConfigData
         /// <param name="asset"></param>
         /// <param name="duration"></param>
         /// <param name="userData"></param>
-        /// <exception cref="NotImplementedException"></exception>
         private void OnConfigDataLoaded(string assetName, object asset, float duration, object userData)
         {
-            throw new NotImplementedException();
+            if (asset is ConfigDataContainerList configDataList)
+            {
+                foreach (var configDataContainer in configDataList.GetAllConfigDataContainerList())
+                {
+                    AddConfigDataContainer(configDataContainer.GetConfigDataType(), configDataContainer);
+                }
+            }
         }
 
         #endregion
@@ -184,6 +190,7 @@ namespace UnityGameFramework.ConfigData
         /// 配置数据根目录
         /// </summary>
         [SerializeField]
+        [Header("配置数据总表目录")]
         private string m_configDataRootDirectory;
 
         /// <summary>

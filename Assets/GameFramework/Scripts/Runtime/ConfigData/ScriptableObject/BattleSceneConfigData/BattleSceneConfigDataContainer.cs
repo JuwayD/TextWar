@@ -47,14 +47,23 @@ namespace UnityGameFramework.ConfigData
         }
 
         /// <summary>
-        /// 生成配置数据字典
+        /// 序列化前
         /// </summary>
-        public override void GenerateConfigDataDict()
+        public override void OnBeforeSerialize()
         {
-            var configDataDict = m_configDataDictionary;
+        }
+
+        /// <summary>
+        /// 序列化后填充字典
+        /// </summary>
+        public override void OnAfterDeserialize()
+        {            
             foreach (var configData in m_configDataList)
             {
-                configDataDict.Add(configData.Id, configData);
+                if (!m_configDataDictionary.ContainsKey(configData.Id))
+                {
+                    m_configDataDictionary.Add(configData.Id, configData);
+                }
             }
         }
 
@@ -63,7 +72,7 @@ namespace UnityGameFramework.ConfigData
         /// <summary>
         /// 配置数据字典
         /// </summary>
-        private readonly Dictionary<int, BattleSceneConfigData> m_configDataDictionary = new Dictionary<int, BattleSceneConfigData>();
+        private Dictionary<int, BattleSceneConfigData> m_configDataDictionary = new Dictionary<int, BattleSceneConfigData>();
 
         /// <summary>
         /// 配置数据列表

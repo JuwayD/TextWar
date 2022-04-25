@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityGameFramework.ConfigData;
 using UnityGameFramework.Runtime;
 
 namespace HRQTextWar.Battle.Logic
@@ -26,11 +27,11 @@ namespace HRQTextWar.Battle.Logic
         {
             base.OnEnter(procedureOwner);
             //加载战斗资源
-            var resource = GameEntry.GetComponent<ResourceComponent>();
-            //resource.LoadAsset(GameObject.fin, new LoadAssetCallbacks(OnBattleGroudLoadComplete, (string assetName, LoadResourceStatus status, string errorMessage, object userData) =>
-            //{
-            //    Log.Debug("BattleProcedure.OnEnter 加载战场失败，请检查资源");
-            //}));
+            GameEntry.Resource.LoadAsset(GameEntry.GetComponent<ConfigDataComponent>().GetConfigData<BattleSceneConfigData>(0).AssetPath
+                , new LoadAssetCallbacks(OnBattleGroudLoadComplete, (string assetName, LoadResourceStatus status, string errorMessage, object userData) =>
+            {
+                Log.Debug("BattleProcedure.OnEnter 加载战场失败，请检查资源");
+            }));
         }
 
         #endregion
