@@ -370,6 +370,23 @@ namespace UnityGameFramework.Runtime
             InitBuiltinComponents();
         }
 
+        private void Awake()
+        {
+            GameRoot = gameObject;
+        }
+
+        #region 接口
+
+        /// <summary>
+        /// 游戏根节点
+        /// </summary>
+        public static GameObject GameRoot
+        {
+            get; set;
+        }
+
+        #endregion
+
         #region 内部字段
 
         /// <summary>

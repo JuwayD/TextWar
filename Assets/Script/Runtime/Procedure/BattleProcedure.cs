@@ -1,9 +1,6 @@
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using GameFramework.Resource;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.ConfigData;
 using UnityGameFramework.Runtime;
@@ -47,7 +44,7 @@ namespace HRQTextWar.Battle.Logic
         /// <param name="userData"></param>
         private void OnBattleGroudLoadComplete(string assetName, object asset, float duration, object userData)
         {
-            m_battleGround = GameObject.Instantiate(asset as GameObject);
+            m_battleGround = GameObject.Instantiate(asset as GameObject, GameEntry.GameRoot.transform);
         }
 
         #endregion
