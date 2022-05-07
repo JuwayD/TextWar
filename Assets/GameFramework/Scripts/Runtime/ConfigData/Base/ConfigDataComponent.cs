@@ -139,7 +139,18 @@ namespace UnityGameFramework.ConfigData
         {
             if (m_configDataContainerDictionary.ContainsKey(configDataType))
             {
-                Log.Error($"ConfigDataComponent.AddConfigDataContainer 该类型已有相应容器 类型:{nameof(configDataType)}");
+                m_configDataContainerDictionary[configDataType].GetConfigDataList().AddRange(configDataContainer.GetConfigDataList());
+                foreach (var item in configDataContainer.GetConfigDataDictionary())
+                {
+                    if (m_allConfigDataDictionary.ContainsKey(configDataType) 
+                        && m_allConfigDataDictionary[configDataType].ContainsKey(item.Key))
+                    {
+                        Debug.LogError($"{configDataType}类型，id{item.Key} 重复出现");
+                        continue;
+                    }
+                    m_allConfigDataDictionary[configDataType][item.Key] = item.Value;
+                    m_configDataContainerDictionary[configDataType].GetConfigDataDictionary()[item.Key] = item.Value;
+                }
                 return false;
             }
             else

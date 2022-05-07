@@ -12,7 +12,7 @@ namespace UnityGameFramework.Runtime
     /// <summary>
     /// 实体逻辑基类。
     /// </summary>
-    public abstract class EntityLogic : MonoBehaviour
+    public class EntityLogic : MonoBehaviour
     {
         private bool m_Available = false;
         private bool m_Visible = false;

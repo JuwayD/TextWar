@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +7,13 @@ namespace UnityGameFramework.ConfigData
 {
 
     /// <summary>
-    /// ÓÎÏ·ÅäÖÃ×ÊÔ´
+    /// æ¸¸æˆé…ç½®èµ„æº
     /// </summary>
-    [CreateAssetMenu(menuName = "ConfigDataContainer/BattleSceneConfigData", fileName = "BattleSceneConfigData", order = 1)]
-    public class BattleSceneConfigDataContainer : ConfigDataContainer
+    [CreateAssetMenu(menuName = "ConfigDataContainer/BattleObjectConfigData", fileName = "BattleObjectConfigData", order = 1)]
+    public class BattleObjectConfigDataContainer : ConfigDataContainer
     {
         /// <summary>
-        /// ·µ»Ø´æ´¢Êı¾İµÄ×Öµä
+        /// è¿”å›å­˜å‚¨æ•°æ®çš„å­—å…¸
         /// </summary>
         /// <returns></returns>
         public override Dictionary<int, ConfigData> GetConfigDataDictionary()
@@ -29,35 +29,35 @@ namespace UnityGameFramework.ConfigData
         }
 
         /// <summary>
-        /// »ñÈ¡ÅäÖÃÊı¾İÀàĞÍ
+        /// è·å–é…ç½®æ•°æ®ç±»å‹
         /// </summary>
         /// <returns></returns>
         public override Type GetConfigDataType()
         {
-            return typeof(BattleSceneConfigData);
+            return typeof(BattleObjectConfigData);
         }
 
         /// <summary>
-        /// ·µ»Ø´æ´¢Êı¾İÁĞ±í
+        /// è¿”å›å­˜å‚¨æ•°æ®åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
-        public override  List<ConfigData> GetConfigDataList()
+        public override List<ConfigData> GetConfigDataList()
         {
             return new List<ConfigData>(m_configDataList);
         }
 
         /// <summary>
-        /// ĞòÁĞ»¯Ç°
+        /// åºåˆ—åŒ–å‰
         /// </summary>
         public override void OnBeforeSerialize()
         {
         }
 
         /// <summary>
-        /// ĞòÁĞ»¯ºóÌî³ä×Öµä
+        /// åºåˆ—åŒ–åå¡«å……å­—å…¸
         /// </summary>
         public override void OnAfterDeserialize()
-        {            
+        {
             foreach (var configData in m_configDataList)
             {
                 if (!m_configDataDictionary.ContainsKey(configData.Id))
@@ -67,38 +67,39 @@ namespace UnityGameFramework.ConfigData
             }
         }
 
-        #region ÄÚ²¿×Ö¶Î
+        #region å†…éƒ¨å­—æ®µ
 
         /// <summary>
-        /// ÅäÖÃÊı¾İ×Öµä
+        /// é…ç½®æ•°æ®å­—å…¸
         /// </summary>
-        private Dictionary<int, BattleSceneConfigData> m_configDataDictionary = new Dictionary<int, BattleSceneConfigData>();
+        private Dictionary<int, BattleObjectConfigData> m_configDataDictionary = new Dictionary<int, BattleObjectConfigData>();
 
         /// <summary>
-        /// ÅäÖÃÊı¾İÁĞ±í
+        /// é…ç½®æ•°æ®åˆ—è¡¨
         /// </summary>
         [SerializeField]
-        private List<BattleSceneConfigData> m_configDataList = new List<BattleSceneConfigData>();
+        private List<BattleObjectConfigData> m_configDataList = new List<BattleObjectConfigData>();
 
         #endregion
     }
 
     /// <summary>
-    /// Õ½¶·³¡¾°ÅäÖÃÊı¾İ
+    /// æˆ˜æ–—åœºæ™¯é…ç½®æ•°æ®
     /// </summary>
     [Serializable]
-    public class BattleSceneConfigData:ConfigData
+    public class BattleObjectConfigData : ConfigData
     {
         /// <summary>
-        /// ×ÊÔ´Â·¾¶
+        /// èµ„æºè·¯å¾„
         /// </summary>
         [SerializeField]
         private string m_assetPath;
 
         /// <summary>
-        /// Õ½¶·³¡¾°×ÊÔ´Â·¾¶
+        /// æˆ˜æ–—å¯¹è±¡èµ„æºè·¯å¾„
         /// </summary>
         public string AssetPath { get => m_assetPath; }
     }
 
 }
+

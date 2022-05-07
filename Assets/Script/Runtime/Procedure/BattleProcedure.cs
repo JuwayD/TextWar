@@ -1,6 +1,7 @@
 using GameFramework.Fsm;
 using GameFramework.Procedure;
 using GameFramework.Resource;
+using HRQTextWar.Common.Logic;
 using UnityEngine;
 using UnityGameFramework.ConfigData;
 using UnityGameFramework.Runtime;
@@ -23,12 +24,12 @@ namespace HRQTextWar.Battle.Logic
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            //加载战斗资源
-            GameEntry.Resource.LoadAsset(GameEntry.GetComponent<ConfigDataComponent>().GetConfigData<BattleSceneConfigData>(0).AssetPath
-                , new LoadAssetCallbacks(OnBattleGroudLoadComplete, (string assetName, LoadResourceStatus status, string errorMessage, object userData) =>
+            string scenePath = GameEntry.ConfigData.GetConfigData<BattleSceneConfigData>(default).AssetPath;
+            if (GameEntry.Entity.HasEntityGroup(scenePath) || GameEntry.Entity.AddEntityGroup(scenePath,DefaultValueDefine.DefaultInstanceAutoReleaseInterval, 
+                DefaultValueDefine.DefaultInstanceCapacity, DefaultValueDefine.DefaultInstanceExpireTime, DefaultValueDefine.DefaultInstancePriority))
             {
-                Log.Debug("BattleProcedure.OnEnter 加载战场失败，请检查资源");
-            }));
+                GameEntry.Entity.ShowEntity<BattleGroundLogic>(UUID.GetNewID(UUID.UUIDType.Entity), scenePath, scenePath);
+            }
         }
 
         #endregion
@@ -44,7 +45,6 @@ namespace HRQTextWar.Battle.Logic
         /// <param name="userData"></param>
         private void OnBattleGroudLoadComplete(string assetName, object asset, float duration, object userData)
         {
-            m_battleGround = GameObject.Instantiate(asset as GameObject, GameEntry.GameRoot.transform);
         }
 
         #endregion
